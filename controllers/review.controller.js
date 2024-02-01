@@ -7,14 +7,13 @@ const createReview = async (req, res, next) => {
 
 
   const newReview = new Review({
-    userId: req.userId,
+    userId: req.body.userId,
     serviceId: req.body.serviceId,
     desc: req.body.desc,
     star: req.body.star,
   });
 
-  console.log(req.userId)
-  console.log(req.body.desc)
+
 
   try {
     // TODO: You can add logic here to check if the user has purchased the service

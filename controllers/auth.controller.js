@@ -91,7 +91,7 @@ const sendResetEmail = async (email, token) => {
     },
   });
 
-  const resetLink = `http://localhost:3000/#/change-password/${token}`; // Replace with your frontend reset password page URL
+  const resetLink = `https://roothq.africa/#/change-password/${token}`; // Replace with your frontend reset password page URL
 
   // Send the email
   await transporter.sendMail({
