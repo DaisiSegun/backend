@@ -1,6 +1,6 @@
 const createError = require("../utils/createError.js");
 const Review = require("../models/review.model.js");
-const Service = require("../models/sp.model.js");
+const User = require("../models/user.model.js");
 
 const createReview = async (req, res, next) => {
   // Check if the user is a seller and if they are trying to review their own service
@@ -20,7 +20,7 @@ const createReview = async (req, res, next) => {
 
     const savedReview = await newReview.save();
 
-    await Service.findByIdAndUpdate(req.body.serviceId, {
+    await User.findByIdAndUpdate(req.body.sellerId, {
       $inc: { totalStars: req.body.star, starNumber: 1 },
     });
     res.status(201).send(savedReview);

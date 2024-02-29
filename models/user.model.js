@@ -35,7 +35,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    languages: {
+    location: {
       type: String,
       required: false,
     },
@@ -50,6 +50,14 @@ const userSchema = new Schema(
     profilePicture: {
       type: String,
       required: false,
+    },
+    totalStars: {
+      type: Number,
+      default: 0,
+    },
+    starNumber: {
+      type: Number,
+      default: 0,
     },
     desc: {
       type: String,

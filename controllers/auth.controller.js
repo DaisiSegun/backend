@@ -186,6 +186,7 @@ const register = async (req, res, next) => {
       adminType,
       businessLocation,
       interests,
+      location,
       profilePictureUrl
     } = req.body;
 
@@ -208,6 +209,7 @@ const register = async (req, res, next) => {
       isAdmin: adminType === 'yes',
       businessLocation,
       interests,
+      location,
       profilePicture: profilePictureUrl,
     });
 
@@ -293,7 +295,7 @@ const editProfile = async (req, res, next) => {
 
   try {
     const userId = req.body.userId;// Assuming you store user information in req.user after authentication
-    console.log(userId)
+ 
     // Retrieve the user from the database
     const user = await User.findById(userId);
 
@@ -301,12 +303,22 @@ const editProfile = async (req, res, next) => {
       return next(createError(404, 'User not found'));
     }
 
+    const existingEmailUser = await User.findOne({ email: req.body.email });
+    if (existingEmailUser && existingEmailUser._id.toString() !== userId) {
+      return res.status(400).json({ error: 'Email is already taken' });
+    }
+
+    const existingUsernameUser = await User.findOne({ username: req.body.username });
+    if (existingUsernameUser && existingUsernameUser._id.toString() !== userId) {
+      return res.status(400).json({ error: 'Username is already taken' });
+    }
+
     // Update the user's profile based on the optional request body fields
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
     user.phone = req.body.phone || user.phone;
     user.businessLocation = req.body.businessLocation || user.businessLocation;
-    user.languages = req.body.languages || user.languages;
+    user.location = req.body.location || user.location;
     user.certifications = req.body.certifications || user.certifications;
     user.interests = req.body.interests || user.interests;
     user.profilePicture = req.body.profilePicture || user.profilePicture;

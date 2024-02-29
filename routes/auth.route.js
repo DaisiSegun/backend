@@ -1,6 +1,6 @@
 const express = require("express");
 const authController = require("../controllers/auth.controller.js");
-const jwtMiddleware = require('../middleware/jwt.js');
+
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.post("/logout", authController.logout);
 router.post("/refresh-token", authController.refreshTokens);
 router.post("/forgot-password", authController.forgotPassword);
 router.post("/change-password", authController.changePassword);
-router.put("/edit-profile", jwtMiddleware.verifyToken, authController.editProfile);
+router.put("/edit-profile",  authController.editProfile);
 
 module.exports = router;

@@ -7,6 +7,9 @@ const spRoute = require('./routes/sp.route.js');
 const catRoute = require('./routes/cat.route.js');
 const cookieParser = require("cookie-parser");
 const reviewRoute = require('./routes/review.route.js');
+const productRoute = require('./routes/product.route.js');
+const productCatRoute = require('./routes/productCat.route.js');
+const freelanceCatRoute = require('./routes/freelanceCat.route.js');
 
 const cors = require("cors");
 
@@ -31,7 +34,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ["http://localhost:3000", "https://roothq.africa"],
+  origin: ["http://localhost:3000", "https://roothq.africa", "https://www.roothq.africa"],
   credentials: true,
 }));
 
@@ -41,6 +44,9 @@ app.use("/api/auth", authRoute);
 app.use("/api/services", spRoute); 
 app.use("/api/cat", catRoute);
 app.use("/api/reviews", reviewRoute);
+app.use("/api/products", productRoute);
+app.use("/api/productCat", productCatRoute);
+app.use("/api/freelanceCat", freelanceCatRoute);
 
 
 

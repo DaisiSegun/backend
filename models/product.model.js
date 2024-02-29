@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const ServiceSchema = new Schema(
+const ProductSchema = new Schema(
   {
     userId: {
       type: String,
@@ -15,14 +15,8 @@ const ServiceSchema = new Schema(
       type: String,
       required: false,
     },
-    certification: {
-      type: String,
-      required: false,
-    },
-    yearsOfExperience: {
-      type: String,
-      required: false,
-    },
+ 
+ 
     totalStars: {
       type: Number,
       default: 0,
@@ -43,14 +37,11 @@ const ServiceSchema = new Schema(
       type: [String],
       required: false,
     },
-    shortTitle: {
-      type: String,
-      required: false,
-    },
     shortDesc: {
       type: String,
       required: false,
     },
+ 
     revisionNumber: {
       type: Number,
       required: false,
@@ -65,4 +56,4 @@ const ServiceSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Service", ServiceSchema);
+module.exports = mongoose.model("Product", ProductSchema);
