@@ -46,7 +46,8 @@ const ProductSchema = new Schema(
       type: Number,
       required: false,
     },
-    sales: {
+    
+    priority: {
       type: Number,
       default: 0,
     },

@@ -1,10 +1,10 @@
-const express = require('express');
-const userController = require('../controllers/user.controller.js');
-const jwtMiddleware = require('../middleware/jwt.js');
+const express = require("express");
+const userController = require("../controllers/user.controller.js");
 
 const router = express.Router();
 
-router.delete("/:id", jwtMiddleware.verifyToken, userController.deleteUser);
-router.get("/:id", userController.getUser);
+router.get("/", userController.getAllUsers);
+router.get("/:id", userController.getUserById);
+router.delete("/:id", userController.deleteUserById); // Add the deleteUserById route
 
 module.exports = router;
