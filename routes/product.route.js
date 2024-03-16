@@ -11,4 +11,5 @@ router.get("/single/:id", productController.getProduct);
 router.get("/all", productController.getProducts);
 router.get("/product-suggestions",  productController.getProductSuggestions);
 
+
 module.exports = router;

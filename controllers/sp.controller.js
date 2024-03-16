@@ -106,6 +106,11 @@ const getService = async (req, res, next) => {
 
 const getServices = async (req, res, next) => {
   const q = req.query;
+
+  // Remove common stop words from the search query
+  const stopWords = ["and", "is", "the", "it", "to", "in", "of", "for", "with", "on"];
+  const searchQuery = q.search ? q.search.split(" ").filter(word => !stopWords.includes(word)).join(" ") : "";
+
   const filters = {
     ...(q.userId && { userId: q.userId }),
     ...(q.cat && { cat: q.cat }),
@@ -118,8 +123,11 @@ const getServices = async (req, res, next) => {
   };
 
   // Add search query to filters
-  if (q.search) {
-    filters.title = { $regex: q.search, $options: "i" };
+  if (searchQuery) {
+    filters.$or = [
+      { title: { $regex: searchQuery, $options: "i" } },
+      { desc: { $regex: searchQuery, $options: "i" } },
+    ];
   }
 
   try {
@@ -130,6 +138,7 @@ const getServices = async (req, res, next) => {
   }
 };
 
+
 const getServiceSuggestions = async (req, res, next) => {
   const q = req.query;
   const filters = {
@@ -137,12 +146,19 @@ const getServiceSuggestions = async (req, res, next) => {
   };
 
   try {
-    const suggestions = await Service.find(filters, "title").limit(5); // Limit the number of suggestions
+    const suggestions = await Service.aggregate([
+      { $match: filters },
+      { $group: { _id: "$title" } },
+      { $project: { _id: 0, title: "$_id" } },
+      { $limit: 5 }, // Limit the number of suggestions
+    ]);
+
     const suggestionTitles = suggestions.map((service) => service.title);
     res.status(200).send(suggestionTitles);
   } catch (err) {
     next(err);
   }
 };
+
 
 module.exports = { createService, deleteService, getService, getServices, getServiceSuggestions, editService };
