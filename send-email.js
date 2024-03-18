@@ -11,12 +11,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmailToAllUsers = async () => {
+const sendEmailToAllUsers = async (email, username) => {
   try {
     await transporter.sendMail({
       from: '"Root team" <support@roothq.africa>',
-      to: 'daisiflourish@gmail.com',
-      subject: 'Welcome to Root My Sister',
+      to: email,
+      subject: 'Welcome to Root',
       html: `
         <html>
           <head>
@@ -55,7 +55,7 @@ const sendEmailToAllUsers = async () => {
           <body>
           <div class="container">
           <h1>Welcome to Root!</h1>
-          <p style="color: #0F253B;">Dear Sister,</p>
+          <p style="color: #0F253B;">Dear ${username}, </p>
           <p style="color: #0F253B;">Root is a vibrant marketplace where you can discover and offer freelance talent, services, and handmade items in Lagos. Your support means the world to us, and we want to express our sincere gratitude for signing up and being part of this incredible journey.</p>
           <p style="color: #0F253B;">At Root, our mission is to change Africa for the better by showing the world the beauty in African services and products. We believe in the potential of Africa and its people, and we're excited to have you join us in this mission.</p>
           <p style="color: #0F253B;">You can visit our website <a href="https://www.roothq.africa" style="color: #0F253B; text-decoration: underline;">here</a> to explore more.</p>
@@ -73,4 +73,7 @@ const sendEmailToAllUsers = async () => {
   }
 };
 
-sendEmailToAllUsers();
+module.exports = sendEmailToAllUsers;
+
+// Example call
+// sendEmailToAllUsers('recipient@example.com', 'Recipient Name');

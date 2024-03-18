@@ -4,6 +4,7 @@ const Crypto = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const createError = require("../utils/createError.js");
 const nodemailer = require('nodemailer');
+const sendEmailToAllUsers = require("../send-email.js");
 
 const generateAccessToken = (user) => {
   const expiresInSeconds = 3 * 30 * 24 * 60 * 60;
@@ -214,10 +215,13 @@ const register = async (req, res, next) => {
     });
 
     await newUser.save();
+    await sendEmailToAllUsers(email, username);
 
     const accessToken = generateAccessToken(newUser);
     const refreshToken = await generateRefreshToken(newUser);
     const { ...userDetails } = newUser._doc;
+
+    
 
     res
       .cookie("accessToken", accessToken, {

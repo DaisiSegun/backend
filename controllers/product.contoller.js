@@ -117,7 +117,7 @@ const getProducts = async (req, res, next) => {
   // Add search query to filters
   if (searchQuery) {
     filters.$or = [
-      { title: { $regex: searchQuery, $options: "i" } },
+      { title: { $regex: searchQuery, $options: "i" } },  
       { desc: { $regex: searchQuery, $options: "i" } },
     ];
   }
