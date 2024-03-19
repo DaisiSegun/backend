@@ -83,8 +83,8 @@ const sendResetEmail = async (email, token) => {
   const transporter = nodemailer.createTransport({
     // Set up your email transport configuration
     // Example: SMTP transport
-    host: 'mail.roothq.africa',
-    port: 26,
+    host: 'roothq.africa',
+    port: 465,
     secure: true,
     auth: {
       user: 'support@roothq.africa',
