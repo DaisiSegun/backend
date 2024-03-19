@@ -3,7 +3,7 @@ require('dotenv').config(); // Load environment variables
 
 const transporter = nodemailer.createTransport({
   host: 'mail.roothq.africa',
-  port: 465,
+  port: 26,
   secure: true,
   auth: {
     user: 'support@roothq.africa',

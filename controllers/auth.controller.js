@@ -84,7 +84,7 @@ const sendResetEmail = async (email, token) => {
     // Set up your email transport configuration
     // Example: SMTP transport
     host: 'mail.roothq.africa',
-    port: 465,
+    port: 26,
     secure: true,
     auth: {
       user: 'support@roothq.africa',
