@@ -99,9 +99,7 @@ const getProduct = async (req, res, next) => {
 const getProducts = async (req, res, next) => {
   const q = req.query;
 
-  // Remove common stop words from the search query
-  const stopWords = ["and", "is", "the", "it", "to", "in", "of", "for", "with", "on"];
-  const searchQuery = q.search ? q.search.split(" ").filter(word => !stopWords.includes(word)).join(" ") : "";
+  const searchQuery = q.search || "";
 
   const filters = {
     ...(q.userId && { userId: q.userId }),
@@ -117,7 +115,7 @@ const getProducts = async (req, res, next) => {
   // Add search query to filters
   if (searchQuery) {
     filters.$or = [
-      { title: { $regex: searchQuery, $options: "i" } },  
+      { title: { $regex: searchQuery, $options: "i" } },
       { desc: { $regex: searchQuery, $options: "i" } },
     ];
   }
@@ -129,6 +127,7 @@ const getProducts = async (req, res, next) => {
     next(err);
   }
 };
+
 
 const getProductSuggestions = async (req, res, next) => {
   const q = req.query;

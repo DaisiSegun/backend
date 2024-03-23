@@ -107,9 +107,7 @@ const getService = async (req, res, next) => {
 const getServices = async (req, res, next) => {
   const q = req.query;
 
-  // Remove common stop words from the search query
-  const stopWords = ["and", "is", "the", "it", "to", "in", "of", "for", "with", "on"];
-  const searchQuery = q.search ? q.search.split(" ").filter(word => !stopWords.includes(word)).join(" ") : "";
+  const searchQuery = q.search || "";
 
   const filters = {
     ...(q.userId && { userId: q.userId }),
@@ -137,6 +135,7 @@ const getServices = async (req, res, next) => {
     next(err);
   }
 };
+
 
 
 const getServiceSuggestions = async (req, res, next) => {
