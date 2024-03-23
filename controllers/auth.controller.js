@@ -215,9 +215,8 @@ const register = async (req, res, next) => {
     });
 
     await newUser.save();
-    setTimeout(async () => {
-      await sendEmailToAllUsers(email, username);
-    }, 24 * 60 * 60 * 1000)
+    await sendEmailToAllUsers(email, username);
+
 
     const accessToken = generateAccessToken(newUser);
     const refreshToken = await generateRefreshToken(newUser);
