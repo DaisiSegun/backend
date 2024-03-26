@@ -59,6 +59,10 @@ const ServiceSchema = new Schema(
       type: Number,
       default: 0,
     },
+    portfolio: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

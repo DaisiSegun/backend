@@ -58,6 +58,10 @@ const editService = async (req, res, next) => {
       service.yearsOfExperience = req.body.yearsOfExperience;
     }
 
+    if (req.body.portfolio) {
+      service.portfolio = req.body.portfolio;
+    }
+
     if (req.body.images && Array.isArray(req.body.images)) {
       service.images = [...service.images, ...req.body.images];
     }
